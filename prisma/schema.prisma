@@ -55,7 +55,7 @@ model User {
   backgroundImage String?
   image           String?
   createdAt       DateTime  @default(now())
-  type            UserType  @default(CREATOR)
+  type            UserType?  @default(CREATOR)
   about           String?
   location        String?
   website         String?
