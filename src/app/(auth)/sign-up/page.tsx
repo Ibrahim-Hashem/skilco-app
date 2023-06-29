@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import SignUp from "@/components/SignUp";
 import { Icons } from "@/components/Icons";
 
-const page: FC = () => {
+const Page: FC = () => {
   return (
     <div className=" absolute inset-0">
       <div className="h-full max-w-2xl mx-auto flex flex-col items-center justify-center gap-20">
@@ -25,4 +25,4 @@ const page: FC = () => {
   );
 };
 
-export default page;
+export default Page;

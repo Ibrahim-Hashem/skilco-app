@@ -11,7 +11,9 @@ const CloseModal = ({}) => {
       variant="subtle"
       className="h-6 w-6 p-0 rounded-md"
       aria-label="close modal"
-      onClick={() => router.back()}
+      onClick={(e) => {
+        router.back()
+      }}
     >
       <Icons.x className="h-6 w-6" />
     </Button>
