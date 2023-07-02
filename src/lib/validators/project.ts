@@ -2,6 +2,7 @@ import { z } from 'zod'
 
 export const ProjectValidator = z.object({
   name: z.string().min(3).max(21),
+  type: z.enum(['PUBLIC', 'PRIVATE']),
 })
 
 export const ProjectSubscriptionsValidator = z.object({

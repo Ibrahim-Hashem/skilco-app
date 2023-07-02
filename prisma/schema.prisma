@@ -55,7 +55,7 @@ model User {
   backgroundImage String?
   image           String?
   createdAt       DateTime  @default(now())
-  type            UserType?  @default(CREATOR)
+  type            UserType? @default(CREATOR)
   about           String?
   location        String?
   website         String?
@@ -72,11 +72,37 @@ model User {
   commentVote   CommentVote[]
   votes         Vote[]
   contributions contribution[]
+
+  investmentSummaryId String?
 }
 
 enum ProjectType {
   PUBLIC
   PRIVATE
+}
+
+model Tags {
+  id       String           @id @default(cuid())
+  name     String           @unique
+  projects TagsOnProjects[]
+}
+
+model TagsOnProjects {
+  tags      Tags    @relation(fields: [tagsId], references: [id])
+  tagsId    String
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId String
+
+  @@id([tagsId, projectId])
+  @@index([tagsId])
+  @@index([projectId])
+}
+
+model InvestmentSummary {
+  id           String  @id @default(cuid())
+  totalFunding Float?
+  project      Project @relation(fields: [projectId], references: [id])
+  projectId    String  @unique
 }
 
 model Project {
@@ -85,15 +111,24 @@ model Project {
   description     String?
   image           String?
   backgroundImage String?
-  aboutContent    Json?
-  website         String?
+
+  businessHighlights Json?
+  website            String?
+  location           String?
+  socialLinks        Json?
+  companyNumber      String?
+  legalName          String?
+  ventureType        String?
+  investmentSummary  InvestmentSummary?
+  industryTags       TagsOnProjects[]
+  contact            String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   posts       Post[]
   subscribers Subscription[]
-  type        ProjectType
+  type        ProjectType    @default(PUBLIC)
   creator     User           @relation("CreatedBy", fields: [creatorId], references: [id])
   creatorId   String
 

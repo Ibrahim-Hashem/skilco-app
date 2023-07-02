@@ -26,16 +26,16 @@ export default function RootLayout({
         inter.className
       )}
     >
-      <Providers>
-        <body className="min-h-screen pt-12 bg-slate-50 antialiased">
+      <body className="min-h-screen pt-12 bg-slate-50 antialiased">
+        <Providers>
           {/* @ts-expect-error Server Component */}
           <Navbar />
           <div className="container max-w-7xl mx-auto h-full pt-12 ">
             {children}
           </div>
           <Toaster />
-        </body>
-      </Providers>
+        </Providers>
+      </body>
     </html>
   )
 }
