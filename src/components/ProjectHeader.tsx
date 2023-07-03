@@ -2,6 +2,8 @@
 
 import { FC } from 'react'
 import Image from 'next/image'
+import { Button } from './ui/Button'
+import { Icons } from './Icons'
 
 // interface ProjectHeaderProps {
 //   projectBgImage: string
@@ -10,14 +12,6 @@ import Image from 'next/image'
 
 const ProjectHeader = () => {
   return (
-    // <div className="relative -mr-8 -ml-8 md:mr-0 md:ml-0 -mt-10 object-cover h-[20vh] md:h-[50vh] w-[100vw] ">
-    //   <Image
-    //     src="/bgImage.jpg"
-    //     alt="project background image"
-    //     fill={true}
-    //     style={{ objectFit: 'cover' }}
-    //   />
-    // </div>
     <div className="relative h-28 md:h-64 w-full">
       <Image
         src="/bgImage.jpg"
@@ -25,14 +19,23 @@ const ProjectHeader = () => {
         fill={true}
         style={{ objectFit: 'cover', borderRadius: '0.5rem' }}
       />
-      <div className="absolute mt-20 ml-4 h-36 w-36  md:mt-48 md:ml-8">
+      <div className="absolute mt-20 ml-4 h-36 w-36  md:mt-48 md:ml-8 box-content overflow-clip ">
         <Image
           src="/bgImage.jpg"
           alt="project background image"
           fill={true}
-          style={{ objectFit: 'cover', borderRadius: '0.5rem' }}
+          style={{ overflow: 'clip', borderRadius: '0.5rem' }}
         />
       </div>
+      {/* follow button for project */}
+      <Button
+        className="absolute top-4 right-4 md:top-8 md:right-8"
+        variant="outline"
+        onClick={() => console.log('follow project')}
+      >
+        <Icons.plus className="mr-2" />
+        Follow
+      </Button>
     </div>
   )
 }
