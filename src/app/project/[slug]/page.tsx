@@ -3,6 +3,7 @@ import { db } from '@/lib/db'
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from '@/config'
 import { notFound, useRouter } from 'next/navigation'
 import ProjectHeader from '@/components/ProjectHeader'
+import ProjectOverview from '@/components/ProjectOverview'
 
 interface pageProps {
   params: {
@@ -47,6 +48,8 @@ const page = async ({ params }: pageProps) => {
           <p className="text-sm md:text-base">{project?.description}</p>
         )}
       </div>
+      {/* business overview section */}
+      <ProjectOverview />
     </>
   )
 }
