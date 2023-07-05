@@ -138,6 +138,13 @@ model Project {
   @@index([creatorId])
 }
 
+enum PostType {
+  DEFAULT
+  PERSONAL
+  PROJECT_UPDATE
+  PROJECT_DISCUSSION
+}
+
 model Post {
   id        String   @id @default(cuid())
   title     String
@@ -151,6 +158,8 @@ model Post {
   authorId String
   comments Comment[]
   votes    Vote[]
+
+  type PostType? @default(DEFAULT)
 
   @@index([authorId])
   @@index([projectId])

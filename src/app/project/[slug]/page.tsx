@@ -1,7 +1,7 @@
 import { getAuthSession } from '@/lib/auth'
 import { db } from '@/lib/db'
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from '@/config'
-import { notFound, useRouter } from 'next/navigation'
+import { notFound } from 'next/navigation'
 import ProjectHeader from '@/components/ProjectHeader'
 import ProjectOverview from '@/components/ProjectOverview'
 import ProjectTabs from '@/components/ProjectTabs'
