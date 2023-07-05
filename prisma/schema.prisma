@@ -64,9 +64,7 @@ model User {
 
   createdProjects Project[] @relation("CreatedBy")
 
-  subscriptions   Subscription[]
-  projectEmployee Project[]      @relation("ProjectEmployee")
-
+  subscriptions Subscription[]
   accounts      Account[]
   sessions      Session[]
   Post          Post[]
@@ -114,19 +112,16 @@ model Project {
   image           String?
   backgroundImage String?
 
-  idea           Json?
-  keyInformation Json?
-  teamMembers    User[] @relation("ProjectEmployee")
-
-  website           String?
-  location          String?
-  socialLinks       Json?
-  companyNumber     String?
-  legalName         String?
-  ventureType       String?
-  investmentSummary InvestmentSummary?
-  industryTags      TagsOnProjects[]
-  contact           String?
+  businessHighlights Json?
+  website            String?
+  location           String?
+  socialLinks        Json?
+  companyNumber      String?
+  legalName          String?
+  ventureType        String?
+  investmentSummary  InvestmentSummary?
+  industryTags       TagsOnProjects[]
+  contact            String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -143,27 +138,19 @@ model Project {
   @@index([creatorId])
 }
 
-enum PostType {
-  USER_POST
-  PROJECT_UPDATE
-  PROJECT_DISCUSSION
-}
-
 model Post {
   id        String   @id @default(cuid())
   title     String
   content   Json?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  project   Project  @relation(fields: [projectId], references: [id])
   projectId String
 
   author   User      @relation(fields: [authorId], references: [id])
   authorId String
   comments Comment[]
   votes    Vote[]
-  Project  Project   @relation(fields: [projectId], references: [id])
-
-  type PostType @default(USER_POST)
 
   @@index([authorId])
   @@index([projectId])
