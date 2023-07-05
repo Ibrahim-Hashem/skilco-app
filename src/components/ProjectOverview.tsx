@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import BusinessOverview from './BusinessOverview'
-import InvestmentSummary from './InvestmentSummary'
+import OpportunitySection from './OpportunitySection'
 
 interface ProjectOverviewProps {}
 
@@ -10,7 +10,7 @@ const ProjectOverview: FC<ProjectOverviewProps> = ({}) => {
       {/* <div className="border border-red-500"></div> */}
       <BusinessOverview />
       {/* <div className="border border-red-500"></div> */}
-      <InvestmentSummary />
+      <OpportunitySection />
     </div>
   )
 }

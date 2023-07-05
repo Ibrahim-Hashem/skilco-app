@@ -4,6 +4,7 @@ import { INFINITE_SCROLLING_PAGINATION_RESULTS } from '@/config'
 import { notFound, useRouter } from 'next/navigation'
 import ProjectHeader from '@/components/ProjectHeader'
 import ProjectOverview from '@/components/ProjectOverview'
+import ProjectTabs from '@/components/ProjectTabs'
 
 interface pageProps {
   params: {
@@ -32,6 +33,26 @@ const page = async ({ params }: pageProps) => {
     },
   })
 
+  const projectMembers = await db.subscription.findMany({
+    where: {
+      projectId: project?.id,
+    },
+    include: {
+      user: true,
+    },
+  })
+  const subscribed = projectMembers.length || 0
+
+  const projects = await db.contribution.findMany({
+    where: {
+      projectId: project?.id,
+    },
+    include: {
+      user: true,
+    },
+  })
+  const contributers = projects.length || 0
+
   if (!project) {
     return notFound()
   }
@@ -42,14 +63,29 @@ const page = async ({ params }: pageProps) => {
         <ProjectHeader />
       </div>
       {/* name and bio */}
-      <div>
-        <h1 className="text-3xl font-bold md:text-4xl h-14">{project?.name}</h1>
+      <div className="mb-6">
+        <h1 className="text-3xl font-bold md:text-4xl h-auto">
+          {project?.name}
+        </h1>
         {project?.description && (
           <p className="text-sm md:text-base">{project?.description}</p>
         )}
+        {subscribed && (
+          <p className="text-sm md:text-base">
+            {' '}
+            <span className="text-zinc-400">Followers:</span> {subscribed}
+          </p>
+        )}
+
+        <p className="text-sm md:text-base">
+          <span className="text-zinc-400">Contributers: </span>
+          {contributers}
+        </p>
       </div>
       {/* business overview section */}
       <ProjectOverview />
+      {/* tabs */}
+      <ProjectTabs />
     </>
   )
 }
