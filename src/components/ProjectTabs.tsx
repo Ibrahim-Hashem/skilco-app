@@ -12,11 +12,12 @@ import ProjectDocuments from '@/components/ProjectDocuments'
 
 export function ProjectTabs() {
   return (
-    <Tabs defaultValue="account" className="">
+    <Tabs defaultValue="idea" className="">
       <TabsList className="grid w-full grid-cols-2 md:grid-cols-6 h-auto">
         <TabsTrigger
           className="bg-zinc-100 my-2 mx-4 hover:bg-zinc-300"
           value="idea"
+          defaultChecked
         >
           Idea
         </TabsTrigger>
