@@ -119,6 +119,17 @@ model ProjectTeam {
   @@index([userId])
 }
 
+model ProjectDocument {
+  id        String   @id @default(cuid())
+  name      String
+  url       String
+  createdAt DateTime @default(now())
+  project   Project  @relation(fields: [projectId], references: [id])
+  projectId String
+
+  @@index([projectId])
+}
+
 model Project {
   id              String  @id @default(cuid())
   name            String  @unique
@@ -126,16 +137,18 @@ model Project {
   image           String?
   backgroundImage String?
 
-  businessHighlights Json?
-  website            String?
-  location           String?
-  socialLinks        Json?
-  companyNumber      String?
-  legalName          String?
-  ventureType        String?
-  investmentSummary  InvestmentSummary?
-  industryTags       TagsOnProjects[]
-  contact            String?
+  idea              Json?
+  keyInformation    Json?
+  documents         ProjectDocument[]
+  website           String?
+  location          String?
+  socialLinks       Json?
+  companyNumber     String?
+  legalName         String?
+  ventureType       String?
+  investmentSummary InvestmentSummary?
+  industryTags      TagsOnProjects[]
+  contact           String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
