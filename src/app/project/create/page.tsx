@@ -23,6 +23,7 @@ const Page = () => {
       const payload: CreateProjectPayload = {
         name: input as string,
         type: type as ProjectType,
+        
       }
       const { data } = await axios.post('/api/project', payload)
       return data as string

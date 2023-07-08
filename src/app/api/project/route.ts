@@ -10,7 +10,7 @@ export async function POST(req: Request) {
       return new Response('Unauthorized', { status: 401 })
     }
     const body = await req.json()
-    const { name } = ProjectValidator.parse(body)
+    const { name, type } = ProjectValidator.parse(body)
     const projectExists = await db.project.findFirst({
       where: {
         name,
@@ -25,7 +25,15 @@ export async function POST(req: Request) {
       data: {
         name: name,
         creatorId: session.user.id,
-        type: 'PUBLIC',
+        type: type || 'PUBLIC',
+      },
+    })
+
+    await db.projectTeam.create({
+      data: {
+        userId: session.user.id,
+        projectId: newProject.id,
+        role: 'ADMIN',
       },
     })
 
@@ -37,19 +45,10 @@ export async function POST(req: Request) {
     })
 
     return new Response(JSON.stringify(newProject.name), { status: 201 })
-  } catch (e) {
+  } catch (e: any) {
     if (e instanceof z.ZodError) {
       return new Response(e.message, { status: 422 })
     }
-    return new Response('could not create project', { status: 500 })
+    return new Response(e.message, { status: 500 })
   }
-}
-
-export async function GET(req: Request) {
-  try {
-    const session = await getAuthSession()
-
-    const body = await req.json()
-    
-  } catch (e) {}
 }

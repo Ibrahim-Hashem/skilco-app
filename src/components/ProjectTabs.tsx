@@ -16,7 +16,6 @@ export function ProjectTabs({
   slug: string
   isCreator: boolean
 }) {
-  console.log({ slug })
   return (
     <Tabs defaultValue="idea" className="">
       <TabsList className="grid w-full grid-cols-2 md:grid-cols-6 h-auto">

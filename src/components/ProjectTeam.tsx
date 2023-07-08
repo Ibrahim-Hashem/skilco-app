@@ -6,7 +6,14 @@ import {
   CardTitle,
 } from './ui/card'
 import { db } from '@/lib/db'
-import { stringify } from 'querystring'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/Table'
 interface ProjectTeamProps {
   slug: string
   isCreator: boolean
@@ -42,18 +49,39 @@ const ProjectTeam = async ({ slug, isCreator }: ProjectTeamProps) => {
 
   return (
     <>
-      <CardHeader>
-        <CardTitle>Team</CardTitle>
-        <CardDescription></CardDescription>
-      </CardHeader>
       <CardContent className="space-y-2">
-        {/* project creator card */}
-        
-        {/* team cards */}
-
-        {/* contributors */}
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Members</TableHead>
+              <TableHead>Role</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody className="">
+            <TableRow>
+              {projectTeam &&
+                projectTeam.map((member) => {
+                  return (
+                    <>
+                      <TableCell>{member.user.name}</TableCell>
+                      <TableCell>{member?.role}</TableCell>
+                    </>
+                  )
+                })}
+              
+              {contributors &&
+                contributors.map((contributor) => {
+                  return (
+                    <>
+                      <TableCell>{contributor.user.name}</TableCell>
+                      <TableCell>{contributor?.workCarriedOut}</TableCell>
+                    </>
+                  )
+                })}
+            </TableRow>
+          </TableBody>
+        </Table>
       </CardContent>
-      <CardFooter></CardFooter>
     </>
   )
 }
