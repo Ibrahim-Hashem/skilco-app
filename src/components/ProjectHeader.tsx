@@ -5,12 +5,13 @@ import Image from 'next/image'
 import { Button } from './ui/Button'
 import { Icons } from './Icons'
 
-// interface ProjectHeaderProps {
-//   projectBgImage: string
-//   projectLogo: string
-// }
+interface ProjectHeaderProps {
+  // projectBgImage: string
+  // projectLogo: string
+  isCreator: boolean
+}
 
-const ProjectHeader = () => {
+const ProjectHeader = ({ isCreator }: ProjectHeaderProps) => {
   return (
     <div className="relative h-28 md:h-64 w-full">
       <Image
@@ -28,14 +29,29 @@ const ProjectHeader = () => {
         />
       </div>
       {/* follow button for project */}
-      <Button
-        className="absolute top-4 right-4 md:top-8 md:right-8"
-        variant="outline"
-        onClick={() => console.log('follow project')}
-      >
-        <Icons.plus className="mr-2" />
-        Follow
-      </Button>
+
+      {
+        // if user is creator of project then they can edit the project
+        isCreator ? (
+          <Button
+            className="absolute top-4 right-4 md:top-8 md:right-8"
+            variant="outline"
+            onClick={() => console.log('edit project')}
+          >
+            <Icons.edit className="mr-2" />
+            Edit
+          </Button>
+        ) : (
+          <Button
+            className="absolute top-4 right-4 md:top-8 md:right-8"
+            variant="outline"
+            onClick={() => console.log('follow project')}
+          >
+            <Icons.plus className="mr-2" />
+            Follow
+          </Button>
+        )
+      }
     </div>
   )
 }

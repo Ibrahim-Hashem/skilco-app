@@ -137,8 +137,8 @@ model Project {
   image           String?
   backgroundImage String?
 
-  idea              Json?
-  keyInformation    Json?
+  idea              String?            @default("")
+  keyInformation    String?            @default("")
   documents         ProjectDocument[]
   website           String?
   location          String?
@@ -160,7 +160,7 @@ model Project {
   creatorId   String
 
   contributors contribution[]
-  ProjectTeam  ProjectTeam[]
+  projectTeam  ProjectTeam[]
 
   @@index([name])
   @@index([creatorId])

@@ -15,6 +15,7 @@ interface pageProps {
 const page = async ({ params }: pageProps) => {
   const { slug } = params
   const session = await getAuthSession()
+  const currentUser = session?.user.id
 
   const project = await db.project.findFirst({
     where: {
@@ -30,6 +31,7 @@ const page = async ({ params }: pageProps) => {
         },
         take: INFINITE_SCROLLING_PAGINATION_RESULTS,
       },
+      creator: true,
     },
   })
 
@@ -56,11 +58,13 @@ const page = async ({ params }: pageProps) => {
   if (!project) {
     return notFound()
   }
+
+  const isCreator = project.creator.id == currentUser
   return (
     <>
       {/* header bgImge and logo */}
-      <div className="pb-28">
-        <ProjectHeader />
+      <div className="pb-28 h-auto">
+        <ProjectHeader isCreator={isCreator} />
       </div>
       {/* name and bio */}
       <div className="mb-6">
@@ -85,7 +89,7 @@ const page = async ({ params }: pageProps) => {
       {/* business overview section */}
       <ProjectOverview />
       {/* tabs */}
-      <ProjectTabs />
+      <ProjectTabs slug={slug} isCreator={isCreator} />
     </>
   )
 }

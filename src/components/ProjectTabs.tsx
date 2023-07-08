@@ -1,8 +1,7 @@
-import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/card'
 // import { Input } from '@/components/ui/Input'
 // import { Label } from '@/components/ui/Label'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/Tabs'
 import ProjectIdea from '@/components/ProjectIdea'
 import ProjectKeyInformation from '@/components/ProjectKeyInformation'
 import ProjectTeam from '@/components/ProjectTeam'
@@ -10,7 +9,14 @@ import ProjectUpdates from '@/components/ProjectUpdates'
 import ProjectDiscussion from '@/components/ProjectDiscussion'
 import ProjectDocuments from '@/components/ProjectDocuments'
 
-export function ProjectTabs() {
+export function ProjectTabs({
+  slug,
+  isCreator,
+}: {
+  slug: string
+  isCreator: boolean
+}) {
+  console.log({ slug })
   return (
     <Tabs defaultValue="idea" className="">
       <TabsList className="grid w-full grid-cols-2 md:grid-cols-6 h-auto">
@@ -54,17 +60,20 @@ export function ProjectTabs() {
       </TabsList>
       <TabsContent value="idea">
         <Card>
-          <ProjectIdea />
+          {/* @ts-expect-error Server Component */}
+          <ProjectIdea slug={slug} isCreator={isCreator} />
         </Card>
       </TabsContent>
       <TabsContent value="keyInformation">
         <Card>
-          <ProjectKeyInformation />
+          {/* @ts-expect-error Server Component */}
+          <ProjectKeyInformation slug={slug} isCreator={isCreator} />
         </Card>
       </TabsContent>
       <TabsContent value="team">
         <Card>
-          <ProjectTeam />
+          {/* @ts-expect-error Server Component */}
+          <ProjectTeam slug={slug} isCreator={isCreator} />
         </Card>
       </TabsContent>
       <TabsContent value="updates">
