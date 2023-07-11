@@ -4,7 +4,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from './ui/card'
+} from './ui/Card'
 import { db } from '@/lib/db'
 import {
   Table,
@@ -58,27 +58,29 @@ const ProjectTeam = async ({ slug, isCreator }: ProjectTeamProps) => {
             </TableRow>
           </TableHeader>
           <TableBody className="">
-            <TableRow>
-              {projectTeam &&
-                projectTeam.map((member) => {
-                  return (
-                    <>
+            {projectTeam &&
+              projectTeam.map((member) => {
+                return (
+                  <>
+                    <TableRow key={member.userId}>
                       <TableCell>{member.user.name}</TableCell>
                       <TableCell>{member?.role}</TableCell>
-                    </>
-                  )
-                })}
-              
-              {contributors &&
-                contributors.map((contributor) => {
-                  return (
-                    <>
+                    </TableRow>
+                  </>
+                )
+              })}
+            <hr className="border-gray-200" />
+            {contributors &&
+              contributors.map((contributor) => {
+                return (
+                  <>
+                    <TableRow key={contributor.userId}>
                       <TableCell>{contributor.user.name}</TableCell>
                       <TableCell>{contributor?.workCarriedOut}</TableCell>
-                    </>
-                  )
-                })}
-            </TableRow>
+                    </TableRow>
+                  </>
+                )
+              })}
           </TableBody>
         </Table>
       </CardContent>

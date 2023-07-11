@@ -1,22 +1,25 @@
-import { FC } from 'react'
-import {
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from './ui/card'
+import { CardContent, CardFooter, CardHeader, CardTitle } from './ui/Card'
 
-interface ProjectUpdatesProps {}
+import MiniCreatePost from './MiniCreatePost'
+import { Session } from 'next-auth'
 
-const ProjectUpdates: FC<ProjectUpdatesProps> = ({}) => {
+interface ProjectUpdatesProps {
+  isCreator: boolean
+  session: Session | null
+}
+
+const ProjectUpdates = ({ isCreator, session }: ProjectUpdatesProps) => {
   return (
     <>
       <CardHeader>
-        <CardTitle></CardTitle>
-        <CardDescription></CardDescription>
+        <CardTitle>
+          {isCreator ? 'Add Project Updates' : 'Update Feed'}
+        </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-2"></CardContent>
+      <CardContent className="space-y-2">
+        <MiniCreatePost session={session} isCreator={isCreator} />
+        {/* display posts feed that where uploaded by project owner */}
+      </CardContent>
       <CardFooter></CardFooter>
     </>
   )

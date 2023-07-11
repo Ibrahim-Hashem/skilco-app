@@ -71,10 +71,11 @@ model User {
   comments      Comment[]
   commentVote   CommentVote[]
   votes         Vote[]
-  contributions contribution[]
+  contributions Contribution[]
 
   investmentSummaryId String?
   ProjectTeam         ProjectTeam[]
+  opportunity         Opportunity[]
 }
 
 enum ProjectType {
@@ -160,8 +161,9 @@ model Project {
   creator     User           @relation("CreatedBy", fields: [creatorId], references: [id])
   creatorId   String
 
-  contributors contribution[]
+  contributors Contribution[]
   projectTeam  ProjectTeam[]
+  opportunity  Opportunity[]
 
   @@index([name])
   @@index([creatorId])
@@ -257,7 +259,7 @@ model Subscription {
   @@index([userId])
 }
 
-model contribution {
+model Contribution {
   createdAt             DateTime @default(now())
   updatedAt             DateTime @updatedAt
   user                  User     @relation(fields: [userId], references: [id])
@@ -271,4 +273,21 @@ model contribution {
   @@id([userId, projectId])
   @@index([projectId])
   @@index([userId])
+}
+
+model Opportunity {
+  title       String
+  description String
+  content     Json?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  project     Project  @relation(fields: [projectId], references: [id])
+  projectId   String
+
+  author   User?  @relation(fields: [authorId], references: [id])
+  authorId String
+
+  @@id([projectId, authorId])
+  @@index([projectId])
+  @@index([authorId])
 }

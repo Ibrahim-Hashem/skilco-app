@@ -1,4 +1,4 @@
-import { Card } from '@/components/ui/card'
+import { Card } from '@/components/ui/Card'
 // import { Input } from '@/components/ui/Input'
 // import { Label } from '@/components/ui/Label'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/Tabs'
@@ -8,13 +8,16 @@ import ProjectTeam from '@/components/ProjectTeam'
 import ProjectUpdates from '@/components/ProjectUpdates'
 import ProjectDiscussion from '@/components/ProjectDiscussion'
 import ProjectDocuments from '@/components/ProjectDocuments'
+import { Session } from 'next-auth'
 
 export function ProjectTabs({
   slug,
   isCreator,
+  session,
 }: {
   slug: string
   isCreator: boolean
+  session: Session | null
 }) {
   return (
     <Tabs defaultValue="idea" className="">
@@ -77,7 +80,7 @@ export function ProjectTabs({
       </TabsContent>
       <TabsContent value="updates">
         <Card>
-          <ProjectUpdates />
+          <ProjectUpdates isCreator={isCreator} session={session} />
         </Card>
       </TabsContent>
       <TabsContent value="Discussion">

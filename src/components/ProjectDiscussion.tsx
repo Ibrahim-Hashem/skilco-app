@@ -5,7 +5,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from './ui/card'
+} from './ui/Card'
 interface ProjectDiscussionProps {}
 
 const ProjectDiscussion: FC<ProjectDiscussionProps> = ({}) => {

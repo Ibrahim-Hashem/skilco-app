@@ -36,7 +36,7 @@ export async function POST(req: Request) {
         role: 'ADMIN',
       },
     })
-
+    
     await db.subscription.create({
       data: {
         userId: session.user.id,

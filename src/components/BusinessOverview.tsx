@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import KeyValue from './KeyValue'
-import { Card } from './ui/card'
+import { Card } from './ui/Card'
 
 interface BusinessOverviewProps {}
 

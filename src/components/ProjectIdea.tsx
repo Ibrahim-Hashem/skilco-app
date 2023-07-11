@@ -1,4 +1,4 @@
-import { CardContent, CardFooter, CardHeader, CardTitle } from './ui/card'
+import { CardContent, CardFooter, CardHeader, CardTitle } from './ui/Card'
 import { db } from '@/lib/db'
 interface ProjectIdeaProps {
   slug: string

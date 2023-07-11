@@ -62,10 +62,6 @@ const page = async ({ params }: pageProps) => {
   const isCreator = project.creator.id == currentUser
   return (
     <>
-      {/* header bgImge and logo */}
-      <div className="pb-28 h-auto">
-        <ProjectHeader isCreator={isCreator} />
-      </div>
       {/* name and bio */}
       <div className="mb-6">
         <h1 className="text-3xl font-bold md:text-4xl h-auto">
@@ -74,22 +70,33 @@ const page = async ({ params }: pageProps) => {
         {project?.description && (
           <p className="text-sm md:text-base">{project?.description}</p>
         )}
-        {subscribed && (
-          <p className="text-sm md:text-base">
-            {' '}
-            <span className="text-zinc-400">Followers:</span> {subscribed}
-          </p>
-        )}
+        <div className="grid grid-cols-2 w-full gap-2">
+          <div className="grid grid-cols-2 w-fit h-fit">
+            {subscribed && (
+              <>
+                <span className="text-zinc-400 ">{'Followers: '}</span>
+                <span className="text-sm md:text-base"> {subscribed}</span>
+              </>
+            )}
 
-        <p className="text-sm md:text-base">
-          <span className="text-zinc-400">Contributers: </span>
-          {contributers}
-        </p>
+            <>
+              <span className="text-zinc-400 ">{'contributors: '} </span>
+              <span className="text-sm md:text-base"> {contributers}</span>
+            </>
+            <>
+              <span className="text-zinc-400 ">{'Created: '} </span>
+              <span className="text-sm md:text-base">
+                {' '}
+                {project?.createdAt.toLocaleDateString().toString()}
+              </span>
+            </>
+          </div>
+        </div>
       </div>
       {/* business overview section */}
       <ProjectOverview />
       {/* tabs */}
-      <ProjectTabs slug={slug} isCreator={isCreator} />
+      <ProjectTabs slug={slug} isCreator={isCreator} session={session} />
     </>
   )
 }

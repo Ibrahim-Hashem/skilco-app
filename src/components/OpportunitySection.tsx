@@ -1,44 +1,48 @@
 import { FC } from 'react'
 import KeyValue from './KeyValue'
-import { Card } from './ui/card'
+import { Card } from './ui/Card'
+import { db } from '@/lib/db'
+import { notFound } from 'next/navigation'
 
-interface OpportunitySectionProps {}
+interface OpportunitySectionProps {
+  slug: string
+}
+const OpportunitySection = async ({ slug }: OpportunitySectionProps) => {
+  // fetch opportunity from database
+  const project = await db.project.findFirst({
+    where: {
+      name: slug,
+    },
+  })
+  const opportunities =
+    (await db.opportunity.findMany({
+      where: {
+        projectId: project?.id,
+      },
+      include: {
+        author: true,
+      },
+    })) || []
 
-const mockOppertunities = [
-  {
-    id: 1,
-    title: 'Opportunity 1',
-    description: 'Description 1',
-  },
-  {
-    id: 2,
-    title: 'Opportunity 2',
-    description: 'Description 2',
-  },
-  {
-    id: 3,
-    title: 'Opportunity 3',
-    description: 'Description 3',
-  },
-]
+  const isProject = !!project
+  if (!isProject) return notFound()
 
-const OpportunitySection: FC<OpportunitySectionProps> = ({}) => {
   return (
     <Card className="px-4 py-2">
       <h1 className="font-bold text-2xl md:text-1xl"> Opportunities</h1>
-      {mockOppertunities.length > 0 ? (
-        mockOppertunities.map((oppertunity) => {
+      {opportunities.length > 0 ? (
+        opportunities.map((ops) => {
           return (
-            <div className="flex flex-col" key={oppertunity.id}>
-              <KeyValue
-                label={oppertunity.title}
-                value={oppertunity.description}
-              />
+            <div
+              className="flex flex-col"
+              key={ops?.projectId + ops?.authorId + ops?.createdAt}
+            >
+              <KeyValue label={ops?.title} value={ops?.description} />
             </div>
           )
         })
       ) : (
-        <p>No oppertunities</p>
+        <p>No opportunities</p>
       )}
     </Card>
   )
