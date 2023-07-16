@@ -50,7 +50,7 @@ const Layout = async ({ children, params: { slug } }: LayoutProps) => {
   return (
     <>
       <div className="pb-28 h-auto">
-        <ProjectHeader isCreator={isSubscribed} />
+        <ProjectHeader isCreator={isSubscribed} projectId={project.id} />
       </div>
       {children}
     </>

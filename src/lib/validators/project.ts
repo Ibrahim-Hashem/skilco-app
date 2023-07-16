@@ -10,6 +10,6 @@ export const ProjectSubscriptionsValidator = z.object({
 })
 
 export type CreateProjectPayload = z.infer<typeof ProjectValidator>
-export type SubscribeToPorjectPayload = z.infer<
+export type SubscribeToProjectPayload = z.infer<
   typeof ProjectSubscriptionsValidator
 >

@@ -23,7 +23,6 @@ const Page = () => {
       const payload: CreateProjectPayload = {
         name: input as string,
         type: type as ProjectType,
-        
       }
       const { data } = await axios.post('/api/project', payload)
       return data as string
@@ -48,13 +47,13 @@ const Page = () => {
         if (error.response?.status == 401) {
           return loginToast()
         }
+      } else {
+        toast({
+          title: 'Something went wrong',
+          description: 'Please try again',
+          variant: 'destructive',
+        })
       }
-
-      toast({
-        title: 'Something went wrong',
-        description: 'Please try again',
-        variant: 'destructive',
-      })
     },
     onSuccess: (data) => {
       router.push(`/project/${data}`)

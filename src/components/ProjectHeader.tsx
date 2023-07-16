@@ -4,14 +4,14 @@ import { FC } from 'react'
 import Image from 'next/image'
 import { Button } from './ui/Button'
 import { Icons } from './Icons'
+import SubscribeUnfollowToggle from './SubscribeUnfollowToggle'
 
 interface ProjectHeaderProps {
-  // projectBgImage: string
-  // projectLogo: string
   isCreator: boolean
+  projectId: string
 }
 
-const ProjectHeader = ({ isCreator }: ProjectHeaderProps) => {
+const ProjectHeader = ({ isCreator, projectId }: ProjectHeaderProps) => {
   return (
     <div className="relative h-28 md:h-64 w-full">
       <Image
@@ -28,30 +28,19 @@ const ProjectHeader = ({ isCreator }: ProjectHeaderProps) => {
           style={{ overflow: 'clip', borderRadius: '0.5rem' }}
         />
       </div>
-      {/* follow button for project */}
-
-      {
-        // if user is creator of project then they can edit the project
-        isCreator ? (
-          <Button
-            className="absolute top-4 right-4 md:top-8 md:right-8"
-            variant="outline"
-            onClick={() => console.log('edit project')}
-          >
-            <Icons.edit className="mr-2" />
-            Edit
-          </Button>
-        ) : (
-          <Button
-            className="absolute top-4 right-4 md:top-8 md:right-8"
-            variant="outline"
-            onClick={() => console.log('follow project')}
-          >
-            <Icons.plus className="mr-2" />
-            Follow
-          </Button>
-        )
-      }
+      {/* change back to isCreator from !isCreator */}
+      {!isCreator ? (
+        <Button
+          className="absolute top-4 right-4 md:top-8 md:right-8"
+          variant="outline"
+          onClick={() => console.log('edit project')}
+        >
+          <Icons.edit className="mr-2" />
+          Edit
+        </Button>
+      ) : (
+        <SubscribeUnfollowToggle projectId={projectId} />
+      )}
     </div>
   )
 }

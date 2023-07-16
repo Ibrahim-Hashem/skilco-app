@@ -22,6 +22,7 @@ import {
   Edit,
   Link2,
   Image,
+  Check,
 } from 'lucide-react'
 
 export const Icons = {
@@ -47,6 +48,7 @@ export const Icons = {
   edit: Edit,
   link2: Link2,
   image: Image,
+  check: Check,
   logo: (props: LucideProps) => (
     <svg
       xmlns="http://www.w3.org/2000/svg"

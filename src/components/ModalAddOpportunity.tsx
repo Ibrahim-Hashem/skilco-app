@@ -37,7 +37,6 @@ const ModalAddOpportunity: FC<ModalAddOpportunityProps> = ({
 
   const router = useRouter()
   const { loginToast } = useCustomToast()
-  const wait = () => new Promise((resolve) => setTimeout(resolve, 1000))
 
   const { mutate: createOpportunity, isLoading } = useMutation({
     mutationFn: async () => {
@@ -77,7 +76,7 @@ const ModalAddOpportunity: FC<ModalAddOpportunityProps> = ({
         variant: 'destructive',
       })
     },
-    onSuccess: (data) => {
+    onSuccess: () => {
       toast({
         title: 'Opportunity created',
         description: 'Your opportunity has been created',
