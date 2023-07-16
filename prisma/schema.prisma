@@ -276,7 +276,7 @@ model Contribution {
 }
 
 model Opportunity {
-  title       String
+  title       String   @unique
   description String
   content     Json?
   createdAt   DateTime @default(now())
@@ -284,10 +284,10 @@ model Opportunity {
   project     Project  @relation(fields: [projectId], references: [id])
   projectId   String
 
-  author   User?  @relation(fields: [authorId], references: [id])
-  authorId String
+  assignedTo   User?   @relation(fields: [assignedToId], references: [id])
+  assignedToId String?
 
-  @@id([projectId, authorId])
+  @@id([projectId, title])
   @@index([projectId])
-  @@index([authorId])
+  @@index([assignedToId])
 }

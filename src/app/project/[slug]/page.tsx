@@ -2,7 +2,6 @@ import { getAuthSession } from '@/lib/auth'
 import { db } from '@/lib/db'
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from '@/config'
 import { notFound } from 'next/navigation'
-import ProjectHeader from '@/components/ProjectHeader'
 import ProjectOverview from '@/components/ProjectOverview'
 import ProjectTabs from '@/components/ProjectTabs'
 
@@ -83,18 +82,11 @@ const page = async ({ params }: pageProps) => {
               <span className="text-zinc-400 ">{'contributors: '} </span>
               <span className="text-sm md:text-base"> {contributers}</span>
             </>
-            <>
-              <span className="text-zinc-400 ">{'Created: '} </span>
-              <span className="text-sm md:text-base">
-                {' '}
-                {project?.createdAt.toLocaleDateString().toString()}
-              </span>
-            </>
           </div>
         </div>
       </div>
       {/* business overview section */}
-      <ProjectOverview />
+      <ProjectOverview slug={slug} isCreator={isCreator} />
       {/* tabs */}
       <ProjectTabs slug={slug} isCreator={isCreator} session={session} />
     </>
