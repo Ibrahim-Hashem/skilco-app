@@ -47,10 +47,15 @@ const Layout = async ({ children, params: { slug } }: LayoutProps) => {
       },
     },
   })
+  const isCreator = project.creatorId === currentUser
   return (
     <>
       <div className="pb-28 h-auto">
-        <ProjectHeader isCreator={isSubscribed} projectId={project.id} />
+        <ProjectHeader
+          isSubscribed={isSubscribed}
+          isCreator={isCreator}
+          projectId={project.id}
+        />
       </div>
       {children}
     </>

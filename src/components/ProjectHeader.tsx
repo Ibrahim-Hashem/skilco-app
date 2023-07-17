@@ -9,9 +9,14 @@ import SubscribeUnfollowToggle from './SubscribeUnfollowToggle'
 interface ProjectHeaderProps {
   isCreator: boolean
   projectId: string
+  isSubscribed: boolean
 }
 
-const ProjectHeader = ({ isCreator, projectId }: ProjectHeaderProps) => {
+const ProjectHeader = ({
+  isCreator,
+  projectId,
+  isSubscribed,
+}: ProjectHeaderProps) => {
   return (
     <div className="relative h-28 md:h-64 w-full">
       <Image
@@ -28,8 +33,7 @@ const ProjectHeader = ({ isCreator, projectId }: ProjectHeaderProps) => {
           style={{ overflow: 'clip', borderRadius: '0.5rem' }}
         />
       </div>
-      {/* change back to isCreator from !isCreator */}
-      {!isCreator ? (
+      {isCreator ? (
         <Button
           className="absolute top-4 right-4 md:top-8 md:right-8"
           variant="outline"
@@ -39,7 +43,10 @@ const ProjectHeader = ({ isCreator, projectId }: ProjectHeaderProps) => {
           Edit
         </Button>
       ) : (
-        <SubscribeUnfollowToggle projectId={projectId} />
+        <SubscribeUnfollowToggle
+          projectId={projectId}
+          isSubscribed={isSubscribed}
+        />
       )}
     </div>
   )

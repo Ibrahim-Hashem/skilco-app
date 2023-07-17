@@ -1,5 +1,5 @@
 'use client'
-import { FC } from 'react'
+import { FC, startTransition } from 'react'
 import { Icons } from './Icons'
 import { useRouter } from 'next/navigation'
 import { useCustomToast } from '@/hooks/use-custom-toast'
@@ -44,7 +44,9 @@ const DeleteOpportunityButton: FC<DeleteOpportuniyButtonProps> = ({
       }
     },
     onSuccess: () => {
-      router.refresh()
+      startTransition(() => {
+        router.refresh()
+      })
       toast({
         title: 'Opportunity deleted',
       })

@@ -1,5 +1,5 @@
 'use client'
-import { FC, useState } from 'react'
+import { FC, startTransition, useState } from 'react'
 import {
   Dialog,
   DialogTrigger,
@@ -77,13 +77,15 @@ const ModalAddOpportunity: FC<ModalAddOpportunityProps> = ({
       })
     },
     onSuccess: () => {
+      startTransition(() => {
+        router.refresh()
+      })
       toast({
         title: 'Opportunity created',
         description: 'Your opportunity has been created',
         variant: 'default',
       })
       setOpen(false)
-      router.refresh()
     },
   })
 
