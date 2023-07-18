@@ -31,21 +31,33 @@ const MiniCreatePost: FC<MiniCreatePostProps> = ({ session, isCreator }) => {
             <span className="absolute bottom-[3px] right-[3px] md:bottom-0 md:right-0 inline-block w-3 h-3 bg-green-500 border-2 border-white rounded-full" />
           )}
         </div>
-
         <Input
           readOnly
-          onClick={() => router.push(pathname + '/submit')}
+          onClick={() =>
+            session && isCreator
+              ? router.push(pathname + '/projectUpdate')
+              : router.push('/sign-in')
+          }
           placeholder="Create post"
         />
+
         <Button
           variant="ghost"
-          onClick={() => router.push(pathname + '/submit')}
+          onClick={() =>
+            session && isCreator
+              ? router.push(pathname + '/projectUpdate')
+              : router.push('/sign-in')
+          }
         >
           <Icons.image className="text-zinc-600" />
         </Button>
         <Button
           variant="ghost"
-          onClick={() => router.push(pathname + '/submit')}
+          onClick={() =>
+            session && isCreator
+              ? router.push(pathname + '/projectUpdate')
+              : router.push('/sign-in')
+          }
         >
           <Icons.link2 className="text-zinc-600" />
         </Button>
