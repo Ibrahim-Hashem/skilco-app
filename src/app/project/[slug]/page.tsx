@@ -70,17 +70,15 @@ const page = async ({ params }: pageProps) => {
           <p className="text-sm md:text-base">{project?.description}</p>
         )}
         <div className="grid grid-cols-2 w-full gap-2">
-          <div className="grid grid-cols-2 w-fit h-fit">
-            {subscribed && (
-              <>
-                <span className="text-zinc-400 ">{'Followers: '}</span>
-                <span className="text-sm md:text-base"> {subscribed}</span>
-              </>
-            )}
+          <div className="grid grid-cols-2 w-fit h-fit gap-2 text-sm md:text-base">
+            <>
+              <span className="text-zinc-400 ">{'Followers:'}</span>
+              <span className="ml-2"> {subscribed}</span>
+            </>
 
             <>
-              <span className="text-zinc-400 ">{'contributors: '} </span>
-              <span className="text-sm md:text-base"> {contributers}</span>
+              <span className="text-zinc-400 ">{'contributors:'} </span>
+              <span className="ml-2"> {contributers}</span>
             </>
           </div>
         </div>
