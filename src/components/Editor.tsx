@@ -141,7 +141,7 @@ const Editor: FC<EditorProps> = ({ projectId }) => {
         content,
         projectId,
       }
-      const { data } = await axios.post('/api/project/post', payload)
+      const { data } = await axios.post('/api/project/post/create', payload)
       return data
     },
     onSuccess: () => {
