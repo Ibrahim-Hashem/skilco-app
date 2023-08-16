@@ -165,7 +165,7 @@ model Project {
   projectTeam  ProjectTeam[]
   opportunity  Opportunity[]
 
-  @@index([name])
+  @@index([name, id])
   @@index([creatorId])
 }
 

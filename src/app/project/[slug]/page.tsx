@@ -77,7 +77,7 @@ const page = async ({ params }: pageProps) => {
   }
 
   const isCreator = project.creator.id == currentUser
-  return (
+  return project.type === 'PUBLIC' ? (
     <>
       <div className="pb-28 h-auto">
         <ProjectHeader
@@ -108,17 +108,19 @@ const page = async ({ params }: pageProps) => {
               </>
             </div>
           </div>
-          <div>
-            <Link
-              className={buttonVariants({
-                variant: 'outline',
-                className: 'w-32 h-full  ',
-              })}
-              href={`project/${slug}/projectUpdate`}
-            >
-              {'Create post'}
-            </Link>
-          </div>
+          {isCreator && (
+            <div>
+              <Link
+                className={buttonVariants({
+                  variant: 'outline',
+                  className: 'w-32 h-full  ',
+                })}
+                href={`project/${slug}/projectUpdate`}
+              >
+                {'Create post'}
+              </Link>
+            </div>
+          )}
         </div>
       </div>
       {/* business overview section */}
@@ -126,6 +128,8 @@ const page = async ({ params }: pageProps) => {
       {/* tabs */}
       <ProjectTabs slug={slug} isCreator={isCreator} session={session} />
     </>
+  ) : (
+    <h1>Project is private, only creator has access.</h1>
   )
 }
 

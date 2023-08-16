@@ -23,6 +23,7 @@ const ProjectUpdates = ({ isCreator, session }: ProjectUpdatesProps) => {
           from="ProjectUpdatePost"
         />
         {/* display posts feed that where uploaded by project owner */}
+        
       </CardContent>
       <CardFooter></CardFooter>
     </>
