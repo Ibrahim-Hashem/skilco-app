@@ -1,14 +1,21 @@
 import { CardContent, CardFooter, CardHeader, CardTitle } from './ui/Card'
 
 import MiniCreatePost from './MiniCreatePost'
+import ProjectUpdateFeed from './ProjectUpdateFeed'
 import { Session } from 'next-auth'
+import { ExtendedProject } from '@/types/db'
 
 interface ProjectUpdatesProps {
   isCreator: boolean
   session: Session | null
+  project: ExtendedProject
 }
 
-const ProjectUpdates = ({ isCreator, session }: ProjectUpdatesProps) => {
+const ProjectUpdates = ({
+  isCreator,
+  session,
+  project,
+}: ProjectUpdatesProps) => {
   return (
     <>
       <CardHeader>
@@ -17,13 +24,12 @@ const ProjectUpdates = ({ isCreator, session }: ProjectUpdatesProps) => {
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-2">
-        <MiniCreatePost
-          session={session}
-          isCreator={isCreator}
-          from="ProjectUpdatePost"
-        />
+        <MiniCreatePost session={session} isCreator={isCreator} />
         {/* display posts feed that where uploaded by project owner */}
-        
+        <ProjectUpdateFeed
+          initialPosts={project.posts}
+          projectName={project.name}
+        />
       </CardContent>
       <CardFooter></CardFooter>
     </>

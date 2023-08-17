@@ -10,14 +10,18 @@ import ProjectDiscussion from '@/components/ProjectDiscussion'
 import ProjectDocuments from '@/components/ProjectDocuments'
 import { Session } from 'next-auth'
 
+import { ExtendedProject } from '@/types/db'
+
 export function ProjectTabs({
   slug,
   isCreator,
   session,
+  project,
 }: {
   slug: string
   isCreator: boolean
   session: Session | null
+  project: ExtendedProject
 }) {
   return (
     <Tabs defaultValue="idea" className="">
@@ -80,7 +84,11 @@ export function ProjectTabs({
       </TabsContent>
       <TabsContent value="updates">
         <Card>
-          <ProjectUpdates isCreator={isCreator} session={session} />
+          <ProjectUpdates
+            isCreator={isCreator}
+            session={session}
+            project={project}
+          />
         </Card>
       </TabsContent>
       <TabsContent value="Discussion">
