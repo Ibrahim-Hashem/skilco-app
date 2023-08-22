@@ -1,6 +1,6 @@
 'use client'
 import { ExtendedPost } from '@/types/db'
-import { FC, useRef } from 'react'
+import { FC, Suspense, useRef } from 'react'
 import { useIntersection } from '@mantine/hooks'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from '@/config'
@@ -64,11 +64,25 @@ const ProjectUpdateFeed: FC<ProjectUpdateFeedProps> = ({
         if (index === posts.length - 1) {
           return (
             <li key={post.id} ref={ref}>
-              <Post />
+              <Post
+                post={post}
+                projectName={post.project.name}
+                commentAmt={post.comments.length}
+                votesAmt={votesAmt}
+                currentVote={currentVote}
+              />
             </li>
           )
         } else {
-          return <Post key={'csscs'} />
+          return (
+            <Post
+              key={post.id}
+              post={post}
+              projectName={post.project.name}
+              commentAmt={post.comments.length}
+              votesAmt={votesAmt}
+            />
+          )
         }
       })}
     </ul>

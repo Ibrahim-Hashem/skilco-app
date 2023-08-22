@@ -126,12 +126,14 @@ const page = async ({ params }: pageProps) => {
       {/* business overview section */}
       <ProjectOverview slug={slug} isCreator={isCreator} />
       {/* tabs */}
-      <ProjectTabs
-        slug={slug}
-        isCreator={isCreator}
-        session={session}
-        project={project}
-      />
+
+        <ProjectTabs
+          slug={slug}
+          isCreator={isCreator}
+          session={session}
+          project={project}
+        />
+
     </>
   ) : (
     <h1>Project is private, only creator has access.</h1>
