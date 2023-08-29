@@ -1,13 +1,9 @@
 import { Card } from '@/components/ui/Card'
-// import { Input } from '@/components/ui/Input'
-// import { Label } from '@/components/ui/Label'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/Tabs'
 import ProjectIdea from '@/components/ProjectIdea'
 import ProjectKeyInformation from '@/components/ProjectKeyInformation'
 import ProjectTeam from '@/components/ProjectTeam'
 import ProjectUpdates from '@/components/ProjectUpdates'
-import ProjectDiscussion from '@/components/ProjectDiscussion'
-import ProjectDocuments from '@/components/ProjectDocuments'
 import { Session } from 'next-auth'
 
 import { ExtendedProject } from '@/types/db'
@@ -25,7 +21,7 @@ export function ProjectTabs({
 }) {
   return (
     <Tabs defaultValue="idea" className="">
-      <TabsList className="grid w-full grid-cols-2 md:grid-cols-6 h-auto">
+      <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 h-auto">
         <TabsTrigger
           className="bg-zinc-100 my-2 mx-4 hover:bg-zinc-300"
           value="idea"
@@ -47,21 +43,9 @@ export function ProjectTabs({
         </TabsTrigger>
         <TabsTrigger
           className="bg-zinc-100 my-2 mx-4 hover:bg-zinc-300"
-          value="updates"
+          value="posts"
         >
-          Updates
-        </TabsTrigger>
-        <TabsTrigger
-          className="bg-zinc-100 my-2 mx-4 hover:bg-zinc-300"
-          value="Discussion"
-        >
-          Discussion
-        </TabsTrigger>
-        <TabsTrigger
-          className="bg-zinc-100 my-2 mx-4 hover:bg-zinc-300"
-          value="Documents"
-        >
-          Documents
+          Posts
         </TabsTrigger>
       </TabsList>
       <TabsContent value="idea">
@@ -82,23 +66,13 @@ export function ProjectTabs({
           <ProjectTeam slug={slug} isCreator={isCreator} />
         </Card>
       </TabsContent>
-      <TabsContent value="updates">
+      <TabsContent value="posts">
         <Card>
           <ProjectUpdates
             isCreator={isCreator}
             session={session}
             project={project}
           />
-        </Card>
-      </TabsContent>
-      <TabsContent value="Discussion">
-        <Card>
-          <ProjectDiscussion />
-        </Card>
-      </TabsContent>
-      <TabsContent value="Documents">
-        <Card>
-          <ProjectDocuments />
         </Card>
       </TabsContent>
     </Tabs>
