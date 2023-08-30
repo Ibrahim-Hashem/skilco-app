@@ -1,11 +1,18 @@
-import { FC, useRef } from 'react'
+'use client'
+
+import { FC, startTransition, useRef } from 'react'
 import { ExtendedPost } from '@/types/db'
-import { useRouter } from 'next/navigation'
 import { formatTimeToNow } from '@/lib/utils'
 import { Icons } from './Icons'
 import { User, Vote } from '@prisma/client'
 import EditorOutput from './EditorOutput'
 import PostVoteClient from './post-vote/PostVoteClient'
+import { db } from '@/lib/db'
+import { useMutation } from '@tanstack/react-query'
+import axios from 'axios'
+import { toast } from '@/hooks/use-toast'
+import { DeletePostRequest } from '@/lib/validators/post'
+import { useRouter } from 'next/navigation'
 
 type PartialVote = Pick<Vote, 'type'>
 interface PostProps {
@@ -17,6 +24,7 @@ interface PostProps {
   commentAmt: number
   votesAmt: number
   currentVote?: PartialVote
+  isCreator?: boolean
 }
 
 const Post: FC<PostProps> = ({
@@ -25,9 +33,39 @@ const Post: FC<PostProps> = ({
   commentAmt,
   votesAmt,
   currentVote,
+  isCreator,
 }) => {
   const pRef = useRef<HTMLDivElement>(null)
   const author = post?.author.name
+  const router = useRouter()
+
+  const { mutate: deletePost, isLoading } = useMutation({
+    mutationFn: async (postId: string) => {
+      const payload: DeletePostRequest = {
+        postId,
+      }
+      const data = await axios.post('/api/project/post/delete', payload)
+      return data
+    },
+    onSuccess: () => {
+      startTransition(() => {
+        router.refresh()
+      })
+      toast({
+        title: 'Post deleted',
+        description: 'Your post has been deleted',
+        variant: 'default',
+      })
+    },
+    onError: (err: any) => {
+      toast({
+        title: 'Error',
+        description: "Couldn't delete post",
+        variant: 'destructive',
+      })
+    },
+  })
+
   return (
     <div className="rounded-md bg-white shadow">
       <div className="px-6 py-4 flex justify-between">
@@ -37,22 +75,30 @@ const Post: FC<PostProps> = ({
           initialVotesAmt={votesAmt}
         />
         <div className="w-0 flex-1">
-          <div className="max-h-40 mt-1 text-xs text-gray-500">
-            {projectName ? (
-              <>
-                <a
-                  className="underline text-zinc-900 text-sm underline-offset-2"
-                  href={`/project/${projectName}`}
-                >
-                  {projectName}
-                </a>
-                <span className="px-1">-</span>
-              </>
-            ) : null}
-            <span>
-              Posted by {author} - {formatTimeToNow(new Date(post.createdAt))}
-            </span>
+          <div className="flex justify-between">
+            <div className="max-h-40 mt-1 text-xs text-gray-500">
+              {projectName ? (
+                <>
+                  <a
+                    className="underline text-zinc-900 text-sm underline-offset-2"
+                    href={`/project/${projectName}`}
+                  >
+                    {projectName}
+                  </a>
+                  <span className="px-1">-</span>
+                </>
+              ) : null}
+              <span>
+                Posted by {author} - {formatTimeToNow(new Date(post.createdAt))}
+              </span>
+            </div>
+            {isCreator && (
+              <button onClick={() => deletePost(post.id as string)}>
+                <Icons.trash className="w-5 h-5" />
+              </button>
+            )}
           </div>
+
           <a href={`project/${projectName}/post/${post.id}`}>
             <h2 className="text-lg font-semibold py-2 leading-6 text-zinc-900">
               {post.title}

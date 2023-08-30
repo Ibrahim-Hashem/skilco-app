@@ -1,6 +1,6 @@
 'use client'
 import { ExtendedPost } from '@/types/db'
-import { FC, Suspense, useRef } from 'react'
+import { FC, useEffect, useRef } from 'react'
 import { useIntersection } from '@mantine/hooks'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from '@/config'
@@ -10,12 +10,14 @@ import Post from './Post'
 
 interface ProjectUpdateFeedProps {
   initialPosts: ExtendedPost[]
-  projectName: string
+  projectName?: string
+  isCreator?: boolean
 }
 
 const ProjectUpdateFeed: FC<ProjectUpdateFeedProps> = ({
   initialPosts,
   projectName,
+  isCreator,
 }) => {
   const lastPostRef = useRef<HTMLElement>(null)
   const { ref, entry } = useIntersection({
@@ -42,9 +44,12 @@ const ProjectUpdateFeed: FC<ProjectUpdateFeedProps> = ({
       initialData: { pages: [initialPosts], pageParams: [1] },
     }
   )
-
+  useEffect(() => {
+    if (entry?.isIntersecting) {
+      fetchNextPage()
+    }
+  }, [entry, fetchNextPage, data])
   const posts = data?.pages.flatMap((page) => page) ?? []
-
   return (
     <ul className="flex flex-col col-span-2 space-y-6">
       {posts.map((post, index) => {
@@ -70,6 +75,7 @@ const ProjectUpdateFeed: FC<ProjectUpdateFeedProps> = ({
                 commentAmt={post.comments.length}
                 votesAmt={votesAmt}
                 currentVote={currentVote}
+                isCreator={isCreator}
               />
             </li>
           )
@@ -81,6 +87,7 @@ const ProjectUpdateFeed: FC<ProjectUpdateFeedProps> = ({
               projectName={post.project.name}
               commentAmt={post.comments.length}
               votesAmt={votesAmt}
+              isCreator={isCreator}
             />
           )
         }

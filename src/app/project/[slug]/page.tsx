@@ -31,6 +31,9 @@ const page = async ({ params }: pageProps) => {
           comments: true,
           project: true,
         },
+        orderBy: {
+          createdAt: 'desc',
+        },
         take: INFINITE_SCROLLING_PAGINATION_RESULTS,
       },
       creator: true,
@@ -127,13 +130,12 @@ const page = async ({ params }: pageProps) => {
       <ProjectOverview slug={slug} isCreator={isCreator} />
       {/* tabs */}
 
-        <ProjectTabs
-          slug={slug}
-          isCreator={isCreator}
-          session={session}
-          project={project}
-        />
-
+      <ProjectTabs
+        slug={slug}
+        isCreator={isCreator}
+        session={session}
+        project={project}
+      />
     </>
   ) : (
     <h1>Project is private, only creator has access.</h1>

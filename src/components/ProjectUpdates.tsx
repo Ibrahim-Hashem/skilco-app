@@ -24,11 +24,14 @@ const ProjectUpdates = ({
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-2">
-        <MiniCreatePost session={session} isCreator={isCreator} />
+        {isCreator && (
+          <MiniCreatePost session={session} isCreator={isCreator} />
+        )}
         {/* display posts feed that where uploaded by project owner */}
         <ProjectUpdateFeed
           initialPosts={project.posts}
           projectName={project.name}
+          isCreator={isCreator}
         />
       </CardContent>
       <CardFooter></CardFooter>

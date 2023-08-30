@@ -25,6 +25,7 @@ import {
   Check,
   ArrowBigDown,
   ArrowBigUp,
+  Trash,
 } from 'lucide-react'
 
 export const Icons = {
@@ -53,6 +54,7 @@ export const Icons = {
   check: Check,
   arrowUp: ArrowBigUp,
   arrowDown: ArrowBigDown,
+  trash: Trash,
   logo: (props: LucideProps) => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
