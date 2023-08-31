@@ -15,11 +15,20 @@ const CustomFeed = async () => {
     },
   })
 
+  const createdProjects = await db.project.findMany({
+    where: {
+      creatorId: session?.user?.id,
+    },
+  })
+
   const posts = await db.post.findMany({
     where: {
       project: {
-        name: {
-          in: followedProjects.map(({ project }) => project.id),
+        id: {
+          in: [
+            ...followedProjects.map(({ project }) => project.id),
+            ...createdProjects.map(({ id }) => id),
+          ],
         },
       },
     },

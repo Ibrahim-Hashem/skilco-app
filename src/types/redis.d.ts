@@ -1,6 +1,6 @@
 import { VoteType } from '@prisma/client'
 
-export type CachedPayload = {
+export type CachedPost = {
   id: string
   title: string
   authorUsername: string
