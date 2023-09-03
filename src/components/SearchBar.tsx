@@ -43,6 +43,7 @@ const SearchBar: FC<SearchBarProps> = ({}) => {
   }, 300)
   const debouncedInput = useCallback(() => {
     request()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const router = useRouter()
@@ -64,7 +65,6 @@ const SearchBar: FC<SearchBarProps> = ({}) => {
         className="relative rounded-lg border max-w-lg z-50 overflow-visible"
       >
         <div className="flex">
-          <Search className=" w-4 shrink-0 opacity-50 ml-2" />
           <CommandInput
             className="outline-none border-non focus:border-none focus:outline-none rounded-lg px-1"
             placeholder="Search projects..."
