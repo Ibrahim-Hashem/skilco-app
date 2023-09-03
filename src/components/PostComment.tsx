@@ -126,7 +126,7 @@ const PostComment: FC<PostCommentProps> = ({
                   postComment({
                     postId,
                     text: input,
-                    replyToId: comment.replytoId || undefined,
+                    replyToId: comment.replytoId ?? comment.id,
                   })
                 }}
               >

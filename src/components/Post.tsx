@@ -89,7 +89,8 @@ const Post: FC<PostProps> = ({
                 </>
               ) : null}
               <span>
-                Posted by {author} - {formatTimeToNow(new Date(post.createdAt))}
+                Posted by {post.author.username} -{' '}
+                {formatTimeToNow(new Date(post.createdAt))}
               </span>
             </div>
             {isCreator && (

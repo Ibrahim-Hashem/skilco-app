@@ -57,6 +57,7 @@ export const Icons = {
   arrowDown: ArrowBigDown,
   trash: Trash,
   send: Send,
+
   logo: (props: LucideProps) => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
