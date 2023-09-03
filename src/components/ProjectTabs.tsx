@@ -1,5 +1,5 @@
 import { Card } from '@/components/ui/Card'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/Tabs'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import ProjectIdea from '@/components/ProjectIdea'
 import ProjectKeyInformation from '@/components/ProjectKeyInformation'
 import ProjectTeam from '@/components/ProjectTeam'
