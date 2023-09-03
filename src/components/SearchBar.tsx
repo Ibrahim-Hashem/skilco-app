@@ -4,10 +4,10 @@ import {
   Command,
   CommandEmpty,
   CommandGroup,
+  CommandInput,
   CommandItem,
   CommandList,
 } from '@/components/ui/Command'
-import { CommandInput } from 'cmdk'
 import { Search, Atom } from 'lucide-react'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
@@ -43,7 +43,6 @@ const SearchBar: FC<SearchBarProps> = ({}) => {
   }, 300)
   const debouncedInput = useCallback(() => {
     request()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const router = useRouter()
