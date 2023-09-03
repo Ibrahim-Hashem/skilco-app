@@ -6,7 +6,7 @@ import {
   CommandGroup,
   CommandItem,
   CommandList,
-} from './ui/Command'
+} from '@/components/ui/Command'
 import { CommandInput } from 'cmdk'
 import { Search, Atom } from 'lucide-react'
 import { useQuery } from '@tanstack/react-query'
