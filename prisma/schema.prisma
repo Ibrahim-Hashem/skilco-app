@@ -51,7 +51,7 @@ model User {
   name            String?
   email           String?   @unique
   emailVerified   DateTime?
-  username        String?   @unique
+  username        String    @unique @default(nanoid(8))
   backgroundImage String?
   image           String?
   createdAt       DateTime  @default(now())

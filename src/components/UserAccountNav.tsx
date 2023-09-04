@@ -22,7 +22,7 @@ import { signOut } from 'next-auth/react'
 import ContributionsModal from './ContributionsModal'
 
 interface UserAccountNavProps {
-  user: Pick<User, 'name' | 'image' | 'email'>
+  user: Pick<User, 'name' | 'image' | 'email'> & { username?: string }
 }
 
 const UserAccountNav: FC<UserAccountNavProps> = ({ user }) => {
@@ -48,7 +48,7 @@ const UserAccountNav: FC<UserAccountNavProps> = ({ user }) => {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
-            <Link href="/profile">
+            <Link href={`/profile/${user.username}`}>
               <Icons.user className="mr-2 h-4 w-4" />
               <span>Profile</span>
             </Link>
@@ -75,7 +75,6 @@ const UserAccountNav: FC<UserAccountNavProps> = ({ user }) => {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            
             <ContributionsModal />
           </DropdownMenuItem>
           <DropdownMenuSub>
@@ -107,7 +106,7 @@ const UserAccountNav: FC<UserAccountNavProps> = ({ user }) => {
               New Project
             </Link>
           </DropdownMenuItem>
-          <DropdownMenuItem asChild>
+          <DropdownMenuItem asChild disabled>
             {/* dyncamic username */}
             {/* first create a username */}
             <Link href={`/profile/projects`}>
