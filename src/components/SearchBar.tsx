@@ -64,17 +64,16 @@ const SearchBar: FC<SearchBarProps> = ({}) => {
         ref={commandRef}
         className="relative rounded-lg border max-w-lg z-50 overflow-visible"
       >
-        <div className="flex">
-          <CommandInput
-            className="outline-none border-non focus:border-none focus:outline-none rounded-lg px-1"
-            placeholder="Search projects..."
-            value={input}
-            onValueChange={(text) => {
-              setInput(text)
-              debouncedInput()
-            }}
-          />
-        </div>
+        <CommandInput
+          className="outline-none border-non focus:border-none focus:outline-none px-1 w-full"
+          placeholder="Search projects..."
+          value={input}
+          onValueChange={(text) => {
+            setInput(text)
+            debouncedInput()
+          }}
+        />
+
         {input.length > 0 ? (
           <CommandList className="absolute bg-white top-full inset-x-0 shadow rounded-b-md">
             {isFetched && <CommandEmpty>No results found</CommandEmpty>}
