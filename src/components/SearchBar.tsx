@@ -8,7 +8,7 @@ import {
   CommandItem,
   CommandList,
 } from '@/components/ui/command'
-import { Search, Atom } from 'lucide-react'
+import { Atom } from 'lucide-react'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { Prisma, Project } from '@prisma/client'

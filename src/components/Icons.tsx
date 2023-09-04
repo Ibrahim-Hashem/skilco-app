@@ -27,6 +27,7 @@ import {
   ArrowBigUp,
   Trash,
   Send,
+  Loader2,
 } from 'lucide-react'
 
 export const Icons = {
@@ -57,6 +58,7 @@ export const Icons = {
   arrowDown: ArrowBigDown,
   trash: Trash,
   send: Send,
+  loader2: Loader2,
 
   logo: (props: LucideProps) => (
     <svg

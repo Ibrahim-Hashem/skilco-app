@@ -1,7 +1,7 @@
-"use client";
-import { FC } from "react";
-import { User } from "next-auth";
-import { Button } from "@/components/ui/Button";
+'use client'
+import { FC } from 'react'
+import { User } from 'next-auth'
+import { Button } from '@/components/ui/Button'
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -14,14 +14,15 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuPortal,
   DropdownMenuSubContent,
-} from "./ui/DropdownMenu";
-import UserAvatar from "@/components/UserAvatar";
-import { Icons } from "./Icons";
-import Link from "next/link";
-import { signOut } from "next-auth/react";
+} from './ui/DropdownMenu'
+import UserAvatar from '@/components/UserAvatar'
+import { Icons } from './Icons'
+import Link from 'next/link'
+import { signOut } from 'next-auth/react'
+import ContributionsModal from './ContributionsModal'
 
 interface UserAccountNavProps {
-  user: Pick<User, "name" | "image" | "email">;
+  user: Pick<User, 'name' | 'image' | 'email'>
 }
 
 const UserAccountNav: FC<UserAccountNavProps> = ({ user }) => {
@@ -74,10 +75,8 @@ const UserAccountNav: FC<UserAccountNavProps> = ({ user }) => {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link href="/contributions">
-              <Icons.users className="mr-2 h-4 w-4" />
-              <span>My Contributions</span>
-            </Link>
+            
+            <ContributionsModal />
           </DropdownMenuItem>
           <DropdownMenuSub>
             <DropdownMenuSubTrigger>
@@ -133,9 +132,9 @@ const UserAccountNav: FC<UserAccountNavProps> = ({ user }) => {
         <DropdownMenuSeparator />
         <DropdownMenuItem
           onSelect={(event) => {
-            event.preventDefault();
-            event.stopPropagation();
-            signOut({ callbackUrl: `${window.location.origin}/sign-in` });
+            event.preventDefault()
+            event.stopPropagation()
+            signOut({ callbackUrl: `${window.location.origin}/sign-in` })
           }}
           className="cursor-pointer"
         >
@@ -144,7 +143,7 @@ const UserAccountNav: FC<UserAccountNavProps> = ({ user }) => {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  );
-};
+  )
+}
 
-export default UserAccountNav;
+export default UserAccountNav
