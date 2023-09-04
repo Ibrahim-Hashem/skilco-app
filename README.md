@@ -1,6 +1,15 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
+## PROJECT DEPLOYED HERE:
+[https://skilco-app.vercel.app/](https://skilco-app.vercel.app/)
+
+Built a platfom which allows users to create projects or start up and collaborate on them together. 
+Techstack:
+- Typescript
+- nextjs framework
+- prisma MySQL
+- Tailwindcss
 
 First, run the development server:
 
