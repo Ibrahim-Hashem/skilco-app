@@ -7,9 +7,16 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 Built a platfom which allows users to create projects or start up and collaborate on them together. 
 Techstack:
 - Typescript
-- nextjs framework
+- nextjs v13 framework
 - prisma MySQL
 - Tailwindcss
+- editorjs
+- zod: parsing data
+- shadcn: ui components
+- uploadthings: file storage bucket (alternative is aws S3 once scaled)
+- tanstack: simplifies making api request on the client (clean approach)
+- upstash: redis for caching.
+- nextAuth: Authentication and authorisation (google provider currently implemented). 
 
 First, run the development server:
 
@@ -20,6 +27,7 @@ yarn dev
 # or
 pnpm dev
 ```
+
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
