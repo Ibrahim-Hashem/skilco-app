@@ -59,7 +59,7 @@ model User {
   about           String?
   location        String?
   website         String?
-  bio             String?
+  bio             String?   @default("")
   aboutContent    Json?
 
   createdProjects Project[] @relation("CreatedBy")
