@@ -33,8 +33,6 @@ const ModalAddOpportunity: FC<ModalAddOpportunityProps> = ({
   const [description, setDescription] = useState<string>('')
   const [open, setOpen] = useState<boolean>(false)
 
-  // TODO: add mutation to create opportunity
-  // mutation must pass in title, description, and projectId
 
   const router = useRouter()
   const { loginToast } = useCustomToast()
