@@ -10,7 +10,8 @@ interface ProjectOverviewProps {
 const ProjectOverview: FC<ProjectOverviewProps> = ({ slug, isCreator }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <BusinessOverview />
+      {/* @ts-expect-error Server Component */}
+      <BusinessOverview slug={slug} />
       {/* @ts-expect-error Server Component */}
       <OpportunitySection slug={slug} isCreator={isCreator} />
     </div>
