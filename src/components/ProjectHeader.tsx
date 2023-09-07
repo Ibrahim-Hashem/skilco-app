@@ -1,6 +1,6 @@
 'use client'
 
-import { FC } from 'react'
+import { FC, startTransition, use, useState } from 'react'
 import Image from 'next/image'
 import { Button } from './ui/Button'
 import { Icons } from './Icons'
@@ -16,18 +16,87 @@ import {
 } from '@/components/ui/Dialog'
 import { Label } from './ui/Label'
 import { Input } from './ui/Input'
+import { Project } from '@prisma/client'
+import { useMutation } from '@tanstack/react-query'
+import { EditProjectPayload } from '@/lib/validators/project'
+import axios, { AxiosError } from 'axios'
+import { toast } from '@/hooks/use-toast'
+import { useRouter } from 'next/navigation'
 
 interface ProjectHeaderProps {
   isCreator: boolean
   projectId: string
   isSubscribed: boolean
+  project: Project & {
+    creator: {
+      id: string
+      name: string | null
+      username: string | null
+    }
+  }
+}
+
+interface projectInfoInterface {
+  location?: string
+  website?: string
+  companyNumber?: string
+  description?: string
 }
 
 const ProjectHeader = ({
   isCreator,
   projectId,
   isSubscribed,
+  project,
 }: ProjectHeaderProps) => {
+  const [projectInfo, setProjectInfo] = useState<projectInfoInterface>({
+    location: project?.location || undefined,
+    website: project?.website || undefined,
+    companyNumber: project?.companyNumber || undefined,
+    description: project?.description || undefined,
+  })
+
+  const router = useRouter()
+
+  const { mutate: EditProject, isLoading } = useMutation({
+    mutationFn: async () => {
+      const payload: EditProjectPayload = {
+        location: projectInfo.location,
+        website: projectInfo.website,
+        companyNumber: projectInfo.companyNumber,
+        description: projectInfo.description,
+      }
+
+      const { data } = await axios.put(`/api/project`, payload)
+
+      return data
+    },
+    onError: (error) => {
+      if (error instanceof AxiosError) {
+        toast({
+          title: `Couldn't edit project`,
+          description:
+            'there was an error editing your project, try again later',
+          variant: 'destructive',
+        })
+      }
+      toast({
+        title: `Something went wrong`,
+        description: 'there was an error editing, try again later',
+      })
+    },
+    onSuccess: () => {
+      startTransition(() => {
+        router.refresh()
+      })
+      toast({
+        title: `Project edited`,
+        description: 'Your project has been edited',
+        variant: 'default',
+      })
+    },
+  })
+
   return (
     <div className="relative h-28 md:h-64 w-full">
       <Image
@@ -62,21 +131,78 @@ const ProjectHeader = ({
               </DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
+              {/* project Location */}
               <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="name" className="text-right">
-                  Name
+                <Label htmlFor="project-location" className="text-right">
+                  Location
                 </Label>
-                <Input id="name" value="Pedro Duarte" className="col-span-3" />
+                <Input
+                  id="project-location"
+                  value={projectInfo.location || ''}
+                  className="col-span-3"
+                  onChange={(e) => {
+                    setProjectInfo({ ...projectInfo, location: e.target.value })
+                  }}
+                />
               </div>
+              {/* project website */}
               <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="username" className="text-right">
-                  Username
+                <Label htmlFor="project-website" className="text-right">
+                  Website
                 </Label>
-                <Input id="username" value="@peduarte" className="col-span-3" />
+                <Input
+                  id="project-website"
+                  value={projectInfo.website || ''}
+                  className="col-span-3"
+                  onChange={(e) => {
+                    setProjectInfo({ ...projectInfo, website: e.target.value })
+                  }}
+                />
+              </div>
+
+              {/* project description */}
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="project-description" className="text-right">
+                  Description
+                </Label>
+                <Input
+                  id="project-description"
+                  value={projectInfo.description}
+                  className="col-span-3"
+                  onChange={(e) => {
+                    setProjectInfo({
+                      ...projectInfo,
+                      description: e.target.value,
+                    })
+                  }}
+                />
+              </div>
+              {/* project company number */}
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="project-company-number" className="text-right">
+                  Company Number
+                </Label>
+                <Input
+                  id="project-company-number"
+                  value={projectInfo.companyNumber}
+                  className="col-span-3"
+                  onChange={(e) => {
+                    setProjectInfo({
+                      ...projectInfo,
+                      companyNumber: e.target.value,
+                    })
+                  }}
+                />
               </div>
             </div>
             <DialogFooter>
-              <Button type="submit">Save changes</Button>
+              <Button
+                type="submit"
+                onClick={() => EditProject()}
+                isLoading={isLoading}
+              >
+                Save changes
+              </Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>

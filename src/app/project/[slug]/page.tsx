@@ -7,6 +7,7 @@ import ProjectTabs from '@/components/ProjectTabs'
 import ProjectHeader from '@/components/ProjectHeader'
 import { buttonVariants } from '@/components/ui/Button'
 import Link from 'next/link'
+import { is } from 'date-fns/locale'
 
 interface pageProps {
   params: {
@@ -36,7 +37,13 @@ const page = async ({ params }: pageProps) => {
         },
         take: INFINITE_SCROLLING_PAGINATION_RESULTS,
       },
-      creator: true,
+      creator: {
+        select: {
+          id: true,
+          name: true,
+          username: true,
+        },
+      },
     },
   })
 
@@ -75,11 +82,14 @@ const page = async ({ params }: pageProps) => {
   })
   const contributers = projects.length || 0
 
-  if (!project) {
+  if (!project) return notFound()
+
+  const isCreator = project.creator.id == currentUser
+
+  if (project?.type === 'PRIVATE' && isCreator) {
     return notFound()
   }
 
-  const isCreator = project.creator.id == currentUser
   return project.type === 'PUBLIC' ? (
     <>
       <div className="pb-28 h-auto">
@@ -87,6 +97,7 @@ const page = async ({ params }: pageProps) => {
           isSubscribed={isSubscribed}
           isCreator={isCreator}
           projectId={project.id}
+          project={project}
         />
       </div>
       {/* name and bio */}
