@@ -42,12 +42,6 @@ const BusinessOverview = async ({ slug }: BusinessOverviewProps) => {
         />
       )}
 
-      {project?.employees && (
-        <KeyValue
-          label="Employees"
-          value={project?.employees ? project?.employees.toString() : ''}
-        />
-      )}
       {project?.companyNumber && (
         <KeyValue
           label="Company Number"
