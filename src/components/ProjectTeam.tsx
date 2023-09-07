@@ -61,12 +61,10 @@ const ProjectTeam = async ({ slug, isCreator }: ProjectTeamProps) => {
             {projectTeam &&
               projectTeam.map((member) => {
                 return (
-                  <>
-                    <TableRow key={member.userId}>
-                      <TableCell>{member.user.name}</TableCell>
-                      <TableCell>{member?.role}</TableCell>
-                    </TableRow>
-                  </>
+                  <TableRow key={member.userId}>
+                    <TableCell>{member.user.name}</TableCell>
+                    <TableCell>{member?.role}</TableCell>
+                  </TableRow>
                 )
               })}
             <hr className="border-gray-200" />
