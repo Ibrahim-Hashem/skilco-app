@@ -66,13 +66,12 @@ export async function PUT(req: Request) {
     const { companyNumber, description, location, name, website } =
       EditProjectValidator.parse(body)
 
-    const userId = session.user.id
-    const project = await db.project.findFirst({
+    const project = await db.project.findUnique({
       where: {
-        name,
-        creatorId: userId,
+        name: name,
       },
     })
+    
     if (!project) {
       return new Response('Project not found', { status: 404 })
     }
@@ -85,7 +84,6 @@ export async function PUT(req: Request) {
         companyNumber,
         description,
         location,
-        name,
         website,
       },
     })

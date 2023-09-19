@@ -65,6 +65,7 @@ const ProjectHeader = ({
         website: projectInfo.website,
         companyNumber: projectInfo.companyNumber,
         description: projectInfo.description,
+        name: project.name,
       }
 
       const { data } = await axios.put(`/api/project`, payload)
