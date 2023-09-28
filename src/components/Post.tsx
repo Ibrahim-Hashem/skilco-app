@@ -1,5 +1,4 @@
 'use client'
-
 import { FC, startTransition, useRef } from 'react'
 import { ExtendedPost } from '@/types/db'
 import { formatTimeToNow } from '@/lib/utils'
@@ -7,7 +6,6 @@ import { Icons } from './Icons'
 import { User, Vote } from '@prisma/client'
 import EditorOutput from './EditorOutput'
 import PostVoteClient from './post-vote/PostVoteClient'
-import { db } from '@/lib/db'
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 import { toast } from '@/hooks/use-toast'
@@ -24,7 +22,7 @@ interface PostProps {
   commentAmt: number
   votesAmt: number
   currentVote?: PartialVote
-  isCreator?: boolean
+  // isCreator?: boolean
 }
 
 const Post: FC<PostProps> = ({
@@ -33,38 +31,38 @@ const Post: FC<PostProps> = ({
   commentAmt,
   votesAmt,
   currentVote,
-  isCreator,
+  // isCreator,
 }) => {
   const pRef = useRef<HTMLDivElement>(null)
-  const author = post?.author.name
-  const router = useRouter()
+  // const author = post?.author.name
+  // const router = useRouter()
 
-  const { mutate: deletePost, isLoading } = useMutation({
-    mutationFn: async (postId: string) => {
-      const payload: DeletePostRequest = {
-        postId,
-      }
-      const data = await axios.post('/api/project/post/delete', payload)
-      return data
-    },
-    onSuccess: () => {
-      startTransition(() => {
-        router.refresh()
-      })
-      toast({
-        title: 'Post deleted',
-        description: 'Your post has been deleted',
-        variant: 'default',
-      })
-    },
-    onError: (err: any) => {
-      toast({
-        title: 'Error',
-        description: "Couldn't delete post",
-        variant: 'destructive',
-      })
-    },
-  })
+  // const { mutate: deletePost, isLoading } = useMutation({
+  //   mutationFn: async (postId: string) => {
+  //     const payload: DeletePostRequest = {
+  //       postId,
+  //     }
+  //     const data = await axios.post('/api/project/post/delete', payload)
+  //     return data
+  //   },
+  //   onSuccess: () => {
+  //     startTransition(() => {
+  //       router.refresh()
+  //     })
+  //     toast({
+  //       title: 'Post deleted',
+  //       description: 'Your post has been deleted',
+  //       variant: 'default',
+  //     })
+  //   },
+  //   onError: (err: any) => {
+  //     toast({
+  //       title: 'Error',
+  //       description: "Couldn't delete post",
+  //       variant: 'destructive',
+  //     })
+  //   },
+  // })
 
   return (
     <div className="rounded-md bg-white shadow">
@@ -93,11 +91,11 @@ const Post: FC<PostProps> = ({
                 {formatTimeToNow(new Date(post.createdAt))}
               </span>
             </div>
-            {isCreator && (
+            {/* {isCreator && (
               <button onClick={() => deletePost(post.id as string)}>
                 <Icons.trash className="w-5 h-5" />
               </button>
-            )}
+            )} */}
           </div>
 
           <a href={`project/${projectName}/post/${post.id}`}>

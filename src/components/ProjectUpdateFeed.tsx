@@ -7,6 +7,7 @@ import { INFINITE_SCROLLING_PAGINATION_RESULTS } from '@/config'
 import axios from 'axios'
 import { useSession } from 'next-auth/react'
 import Post from './Post'
+import { Loader2 } from 'lucide-react'
 
 interface ProjectUpdateFeedProps {
   initialPosts: ExtendedPost[]
@@ -48,8 +49,8 @@ const ProjectUpdateFeed: FC<ProjectUpdateFeedProps> = ({
     if (entry?.isIntersecting) {
       fetchNextPage()
     }
-  }, [entry, fetchNextPage, data])
-  const posts = data?.pages.flatMap((page) => page) ?? []
+  }, [entry, fetchNextPage])
+  const posts = data?.pages.flatMap((page) => page) ?? initialPosts
   return (
     <ul className="flex flex-col col-span-2 space-y-6">
       {posts.map((post, index) => {
@@ -75,7 +76,7 @@ const ProjectUpdateFeed: FC<ProjectUpdateFeedProps> = ({
                 commentAmt={post.comments.length}
                 votesAmt={votesAmt}
                 currentVote={currentVote}
-                isCreator={isCreator}
+                // isCreator={isCreator}
               />
             </li>
           )
@@ -87,11 +88,16 @@ const ProjectUpdateFeed: FC<ProjectUpdateFeedProps> = ({
               projectName={post.project.name}
               commentAmt={post.comments.length}
               votesAmt={votesAmt}
-              isCreator={isCreator}
+              // isCreator={isCreator}
             />
           )
         }
       })}
+      {isFetchingNextPage && (
+        <li className="flex justify-center">
+          <Loader2 className="w-6 h-6 text-zinc-500 animate-spin" />
+        </li>
+      )}
     </ul>
   )
 }
