@@ -1,4 +1,3 @@
-import { FC, useEffect } from 'react'
 import KeyValue from './KeyValue'
 import { Card } from './ui/Card'
 import { db } from '@/lib/db'

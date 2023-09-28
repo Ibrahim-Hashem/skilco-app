@@ -1,4 +1,5 @@
 'use client'
+
 import { FC, startTransition, useRef, useState } from 'react'
 import UserAvatar from './UserAvatar'
 import { CommentVote, User, Comment } from '@prisma/client'
