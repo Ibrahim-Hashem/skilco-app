@@ -16,7 +16,22 @@ Techstack:
 - uploadthings: file storage bucket (alternative is aws S3 once scaled)
 - tanstack: simplifies making api request on the client (clean approach)
 - upstash: redis for caching.
-- nextAuth: Authentication and authorisation (google provider currently implemented). 
+- nextAuth: Authentication and authorisation (google provider currently implemented).
+
+Features:
+
+- Multi-Media Post Creation: Users can create posts containing images, code snippets, and text content, enriching project discussions.
+- Ownership Association: Each post is linked to project owners, offering clear attribution and accountability.
+- User Interaction: Users have the ability to express their opinions by liking or disliking posts, fostering community engagement.
+- Commenting: Users can engage in discussions by leaving comments on posts, encouraging valuable interactions.
+- Project Management: Skilco allows users to create and manage project pages, promoting a structured approach to collaboration.
+- Project Following: Users can follow project pages they're interested in, ensuring they stay up-to-date with project developments.
+- Home Screen Feed: The home screen aggregates posts from followed projects, creating a centralized hub for users to access project-related content.
+- Search Functionality: A robust search feature enables users to discover and explore a wide range of projects.
+- Profile Customization: Users have the freedom to personalize their profiles, tailoring their online presence.
+- And More: Skilco boasts a plethora of additional features that enhance the overall user experience and facilitate effective project collaboration.
+
+This project serves as a testament to my proficiency in building complex systems that seamlessly integrate both frontend and backend components, providing users with a comprehensive and engaging platform for entrepreneurial endeavors.
 
 First, run the development server:
 
