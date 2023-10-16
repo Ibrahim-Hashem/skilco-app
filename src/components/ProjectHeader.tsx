@@ -22,6 +22,7 @@ import { EditProjectPayload } from '@/lib/validators/project'
 import axios, { AxiosError } from 'axios'
 import { toast } from '@/hooks/use-toast'
 import { useRouter } from 'next/navigation'
+import { is } from 'date-fns/locale'
 
 interface ProjectHeaderProps {
   isCreator: boolean
@@ -144,6 +145,7 @@ const ProjectHeader = ({
                   onChange={(e) => {
                     setProjectInfo({ ...projectInfo, location: e.target.value })
                   }}
+                  required
                 />
               </div>
               {/* project website */}
@@ -158,6 +160,7 @@ const ProjectHeader = ({
                   onChange={(e) => {
                     setProjectInfo({ ...projectInfo, website: e.target.value })
                   }}
+                  required
                 />
               </div>
 
@@ -176,6 +179,7 @@ const ProjectHeader = ({
                       description: e.target.value,
                     })
                   }}
+                  required
                 />
               </div>
               {/* project company number */}
@@ -193,6 +197,7 @@ const ProjectHeader = ({
                       companyNumber: e.target.value,
                     })
                   }}
+                  required
                 />
               </div>
             </div>
@@ -201,6 +206,13 @@ const ProjectHeader = ({
                 type="submit"
                 onClick={() => EditProject()}
                 isLoading={isLoading}
+                disabled={
+                  projectInfo.companyNumber == undefined ||
+                  projectInfo.description == undefined ||
+                  projectInfo.location == undefined ||
+                  projectInfo.website == undefined ||
+                  isLoading
+                }
               >
                 Save changes
               </Button>

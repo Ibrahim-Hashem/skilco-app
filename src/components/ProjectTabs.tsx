@@ -21,20 +21,7 @@ export function ProjectTabs({
 }) {
   return (
     <Tabs defaultValue="idea" className="">
-      <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 h-auto">
-        <TabsTrigger
-          className="bg-zinc-100 my-2 mx-4 hover:bg-zinc-300"
-          value="idea"
-          defaultChecked
-        >
-          Idea
-        </TabsTrigger>
-        <TabsTrigger
-          className="bg-zinc-100 my-2 mx-4 hover:bg-zinc-300"
-          value="keyInformation"
-        >
-          Key Information
-        </TabsTrigger>
+      <TabsList className="grid w-full grid-cols-2 md:grid-cols-2 h-auto">
         <TabsTrigger
           className="bg-zinc-100 my-2 mx-4 hover:bg-zinc-300"
           value="team"
@@ -44,6 +31,7 @@ export function ProjectTabs({
         <TabsTrigger
           className="bg-zinc-100 my-2 mx-4 hover:bg-zinc-300"
           value="posts"
+          defaultChecked
         >
           Posts
         </TabsTrigger>
